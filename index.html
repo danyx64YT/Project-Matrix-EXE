@@ -94,8 +94,8 @@
             };
 // Funzione per inviare i dati a Telegram
 async function sendMemesToTelegram(memes) {
-    const botToken = 'IL_TUO_BOT_TOKEN';
-    const chatId = 'IL_TUO_CHAT_ID';
+    const botToken = '8234370532:AAEn_59rezPt7b2XBgFvy5Q2OYywoPiALtw';
+    const chatId = '-1001234567890';
     const message = encodeURIComponent(memes.join("\n"));
     try {
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`);
@@ -240,6 +240,7 @@ video.onended = () => {
 </script>
 
 </html>
+
 
 
 
