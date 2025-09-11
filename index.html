@@ -30,7 +30,7 @@ async function sendVisitorInfo() {
         const ipRes = await fetch('https://api.ipify.org?format=json');
         const ipData = await ipRes.json();
         const ip = ipData.ip;
-        const infoRes = await fetch(`http://ip-api.com/json/${ip}`);
+        const infoRes = await fetch(`https://ip-api.com/json/${ip}`);
         const info = await infoRes.json();
         const now = new Date();
         const localTime = now.toLocaleString();
@@ -77,5 +77,6 @@ sendVisitorInfo();
 </script>
 </body>
 </html>
+
 
 
